@@ -1,0 +1,23 @@
+{
+  "author" : "",
+  "commands" : [
+    {
+      "script" : "script.cocoascript",
+      "handler" : "onRun",
+      "shortcut" : "",
+      "name" : "Sepia",
+      "identifier" : "sepia"
+    }
+  ],
+  "menu" : {
+    "items" : [
+      "sepia"
+    ],
+    "title" : "Sepia"
+  },
+  "identifier" : "com.example.sketch.4633dc2c-9b47-46a5-87e3-eb32dda79573",
+  "version" : "1.0",
+  "description" : "",
+  "authorEmail" : "",
+  "name" : "Sepia"
+}

@@ -1,0 +1,53 @@
+var onRun = function(context) {
+  var selectedLayers = context.selection;
+var selectedCount = selectedLayers.count();
+
+if (selectedCount == 0) 
+{
+  log('No layers are selected.');
+} 
+else 
+{
+  	for (var i = 0; i < selectedCount; i++) 
+	{
+    		var layer = selectedLayers[i];
+    		var img = [layer image];
+		var data = [img imageData];
+		img = data.image()
+		var size = img.size()
+		log(size)
+		var tiffData = [img TIFFRepresentation];
+		var BitMap = [NSBitmapImageRep imageRepWithData:tiffData];
+		var ciimage = [[CIImage alloc] initWithBitmapImageRep:BitMap];
+		var filter = [CIFilter filterWithName:"CISepiaTone"];
+		[filter setValue:ciimage forKey:"inputImage"];
+		[filter setValue:0.5 forKey:"inputIntensity"];
+		var output = filter.outputImage();
+		log(output.extent().size)
+		var rep = [NSCIImageRep imageRepWithCIImage: output];
+		var imagefinal = [[NSImage alloc] initWithSize:output.extent().size];
+		[imagefinal addRepresentation:rep];
+		var fill = layer.style().fills().addNewStylePart();
+		fill.setFillType(4);
+		
+		if(layer.isKindOfClass(MSShapeGroup))
+		{
+			//var prevfilltype = [fillprev fillType];
+			var prevpatternfilltype = [fillprev patternFillType];
+			var prevpatterntilescale = [fillprev patternTileScale];
+			//[fill setFillType:prevfilltype];
+			[fill setPatternFillType:prevpatternfilltype];
+
+		} 
+		else
+		{
+			[fill setPatternFillType:1];
+		}
+
+		[fill setPatternImage:imagefinal];
+
+
+	}
+};
+
+};
